@@ -7,17 +7,17 @@ this_sample_break <- Sys.getenv( "this_sample_break" )
 timss_cat <- get_catalog( "timss" , output_dir = file.path( getwd() ) )
 record_categories <- ceiling( seq( nrow( timss_cat ) ) / ceiling( nrow( timss_cat ) / 6 ) )
 timss_cat <- timss_cat[ record_categories == this_sample_break , ]
-lodown( "timss" , timss_cat )
+timss_cat <- lodown( "timss" , timss_cat )
 if( any( timss_cat$year == 2015 ) ){
-library(lodown)
-# examine all available TIMSS microdata files
-timss_cat <-
-	get_catalog( "timss" ,
-		output_dir = file.path( getwd() ) )
 
-# 2015 only
-timss_cat <- subset( timss_cat , year == 2015 )
-# download the microdata to your local computer
+
+
+
+
+
+
+
+
 
 
 library(survey)

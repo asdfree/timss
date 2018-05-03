@@ -73,12 +73,17 @@ timss_MIcombine( with( timss_design , svytotal( ~ idcntry ) ) )
 timss_MIcombine( with( timss_design ,
 	svyby( ~ idcntry , ~ sex , svytotal )
 ) )
-timss_MIcombine( with( timss_design , svyquantile( ~ asmmat , 0.5 , se = TRUE ) ) )
+timss_MIcombine( with( timss_design ,
+	svyquantile(
+		~ asmmat ,
+		0.5 , se = TRUE 
+) ) )
 
 timss_MIcombine( with( timss_design ,
-	svyby( 
-		~ asmmat , ~ sex , svyquantile , 0.5 ,
-		se = TRUE , keep.var = TRUE , ci = TRUE 
+	svyby(
+		~ asmmat , ~ sex , svyquantile ,
+		0.5 , se = TRUE ,
+		keep.var = TRUE , ci = TRUE 
 ) ) )
 timss_MIcombine( with( timss_design ,
 	svyratio( numerator = ~ asssci , denominator = ~ asmmat )

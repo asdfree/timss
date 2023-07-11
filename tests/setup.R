@@ -181,20 +181,20 @@ timss_MIcombine( with( timss_design , svytotal( ~ one ) ) )
 timss_MIcombine( with( timss_design ,
 	svyby( ~ one , ~ sex , svytotal )
 ) )
-timss_MIcombine( with( timss_design , svymean( ~ asmmat ) ) )
+timss_MIcombine( with( timss_design , svymean( ~ asmmat , na.rm = TRUE ) ) )
 
 timss_MIcombine( with( timss_design ,
-	svyby( ~ asmmat , ~ sex , svymean )
+	svyby( ~ asmmat , ~ sex , svymean , na.rm = TRUE )
 ) )
 timss_MIcombine( with( timss_design , svymean( ~ countries_thru_canada ) ) )
 
 timss_MIcombine( with( timss_design ,
 	svyby( ~ countries_thru_canada , ~ sex , svymean )
 ) )
-timss_MIcombine( with( timss_design , svytotal( ~ asmmat ) ) )
+timss_MIcombine( with( timss_design , svytotal( ~ asmmat , na.rm = TRUE ) ) )
 
 timss_MIcombine( with( timss_design ,
-	svyby( ~ asmmat , ~ sex , svytotal )
+	svyby( ~ asmmat , ~ sex , svytotal , na.rm = TRUE )
 ) )
 timss_MIcombine( with( timss_design , svytotal( ~ countries_thru_canada ) ) )
 
@@ -204,23 +204,23 @@ timss_MIcombine( with( timss_design ,
 timss_MIcombine( with( timss_design ,
 	svyquantile(
 		~ asmmat ,
-		0.5 , se = TRUE 
+		0.5 , se = TRUE , na.rm = TRUE 
 ) ) )
 
 timss_MIcombine( with( timss_design ,
 	svyby(
 		~ asmmat , ~ sex , svyquantile ,
 		0.5 , se = TRUE ,
-		ci = TRUE 
+		ci = TRUE , na.rm = TRUE
 ) ) )
 timss_MIcombine( with( timss_design ,
 	svyratio( numerator = ~ asssci , denominator = ~ asmmat )
 ) )
 sub_timss_design <- subset( timss_design , idcntry %in% c( 36 , 40 , 31 , 956 ) )
-timss_MIcombine( with( sub_timss_design , svymean( ~ asmmat ) ) )
+timss_MIcombine( with( sub_timss_design , svymean( ~ asmmat , na.rm = TRUE ) ) )
 this_result <-
 	timss_MIcombine( with( timss_design ,
-		svymean( ~ asmmat )
+		svymean( ~ asmmat , na.rm = TRUE )
 	) )
 
 coef( this_result )
@@ -230,7 +230,7 @@ cv( this_result )
 
 grouped_result <-
 	timss_MIcombine( with( timss_design ,
-		svyby( ~ asmmat , ~ sex , svymean )
+		svyby( ~ asmmat , ~ sex , svymean , na.rm = TRUE )
 	) )
 
 coef( grouped_result )
@@ -238,15 +238,15 @@ SE( grouped_result )
 confint( grouped_result )
 cv( grouped_result )
 degf( timss_design$designs[[1]] )
-timss_MIcombine( with( timss_design , svyvar( ~ asmmat ) ) )
+timss_MIcombine( with( timss_design , svyvar( ~ asmmat , na.rm = TRUE ) ) )
 # SRS without replacement
 timss_MIcombine( with( timss_design ,
-	svymean( ~ asmmat , deff = TRUE )
+	svymean( ~ asmmat , na.rm = TRUE , deff = TRUE )
 ) )
 
 # SRS with replacement
 timss_MIcombine( with( timss_design ,
-	svymean( ~ asmmat , deff = "replace" )
+	svymean( ~ asmmat , na.rm = TRUE , deff = "replace" )
 ) )
 # MIsvyciprop( ~ born_in_country , timss_design ,
 # 	method = "likelihood" , na.rm = TRUE )

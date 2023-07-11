@@ -248,7 +248,7 @@ glm_result <-
 	) )
 	
 summary( glm_result )
-australia_design <- subset( timss_design , countries_thru_canada == "Australia" )
+australia_design <- subset( timss_design , countries_thru_canada %in% "Australia" )
 
 stopifnot( nrow( australia_design ) == 5890 )
 

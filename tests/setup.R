@@ -53,9 +53,19 @@ library(haven)
 # limit unzipped files to those starting with `asg` followed by three letters followed by `m7`
 asg_fns <- unzipped_files[ grepl( '^asg[a-z][a-z][a-z]m7' , basename( unzipped_files ) ) ]
 
+# further limit asg files to the first ten countries
+countries_thru_canada <- c("alb", "arm", "aus", "aut", "aze", "bhr", "bfl", "bih", "bgr", "can")
+
+asg_alb_can_fns <-
+	grep( 
+		paste0( countries_thru_canada , collapse = "|" ) , 
+		asg_fns , 
+		value = TRUE 
+	)
+
 timss_df <- NULL
 
-for( spss_fn in asg_fns ){
+for( spss_fn in asg_alb_can_fns ){
 
 	this_tbl <- read_spss( spss_fn )
 	

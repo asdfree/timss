@@ -271,7 +271,7 @@ australia_tbl <- zap_labels( australia_tbl )
 australia_df <- data.frame( australia_tbl )
 names( australia_df ) <- tolower( names( australia_df ) )
 
-mean_proficiency <-
+estimate <-
 	mean( c(
 		with( australia_df , weighted.mean( asmmat01 , totwgt ) ) ,
 		with( australia_df , weighted.mean( asmmat02 , totwgt ) ) ,
@@ -280,7 +280,7 @@ mean_proficiency <-
 		with( australia_df , weighted.mean( asmmat05 , totwgt ) )
 	) )
 
-stopifnot( round( mean_proficiency , 3 ) == 515.880 )
+stopifnot( round( estimate , 3 ) == 515.880 )
 
 for( k in 1:5 ){
 
@@ -314,24 +314,15 @@ for( k in 1:5 ){
 sampling_variance <- mean( c( v1 , v2 , v3 , v4 , v5 ) )
 stopifnot( round( sampling_variance , 3 ) == 7.397 )
 
-t0 <-
-	mean( c(
-		with( australia_df , weighted.mean( asmmat01 , totwgt ) ) ,
-		with( australia_df , weighted.mean( asmmat02 , totwgt ) ) ,
-		with( australia_df , weighted.mean( asmmat03 , totwgt ) ) ,
-		with( australia_df , weighted.mean( asmmat04 , totwgt ) ) ,
-		with( australia_df , weighted.mean( asmmat05 , totwgt ) )
-	) )
-
 imputation_variance <-
 	( 6 / 5 ) * 
-		( 
-			( ( with( australia_df , weighted.mean( asmmat01 , totwgt ) ) - t0 )^2 / 4 ) +
-			( ( with( australia_df , weighted.mean( asmmat02 , totwgt ) ) - t0 )^2 / 4 ) +
-			( ( with( australia_df , weighted.mean( asmmat03 , totwgt ) ) - t0 )^2 / 4 ) +
-			( ( with( australia_df , weighted.mean( asmmat04 , totwgt ) ) - t0 )^2 / 4 ) +
-			( ( with( australia_df , weighted.mean( asmmat05 , totwgt ) ) - t0 )^2 / 4 ) 
-		)
+	( 
+		( ( with( australia_df , weighted.mean( asmmat01 , totwgt ) ) - estimate )^2 / 4 ) +
+		( ( with( australia_df , weighted.mean( asmmat02 , totwgt ) ) - estimate )^2 / 4 ) +
+		( ( with( australia_df , weighted.mean( asmmat03 , totwgt ) ) - estimate )^2 / 4 ) +
+		( ( with( australia_df , weighted.mean( asmmat04 , totwgt ) ) - estimate )^2 / 4 ) +
+		( ( with( australia_df , weighted.mean( asmmat05 , totwgt ) ) - estimate )^2 / 4 ) 
+	)
 
 stopifnot( round( imputation_variance , 3 ) == 0.309 )
 
